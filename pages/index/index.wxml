@@ -1,0 +1,11 @@
+<!--index.wxml-->
+<view class="container" style='background-color:rgb({{r}},{{g}},{{b}})'>
+  
+  <!-- <view class='bad_px' bindtap='addScore' style="left:{{offsetX}}px,top:{{offsetY}}px"></view> -->
+
+   <!-- <view class='bad_px' bindtap='addScore' style="transform:translate({{offsetX}} px,{{offsetY}} px);opacity:{{opac}}"></view>  -->
+   <view class='bad_px' bindtap='addScore' style='left:{{offsetX}}px;top:{{offsetY}}px;opacity:{{opac}}'></view>
+   <view class='info'> 
+    <text>得分:{{score}},x:{{offsetX}},y:{{offsetY}} r{{r}}</text>
+   </view> 
+</view>
