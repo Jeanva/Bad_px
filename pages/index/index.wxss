@@ -7,14 +7,76 @@
   height:100%;
   position:fixed;
 }
+/* 左上角消失 */
+.flying_pic1{
+  background-color:yellow;
+  width:10rpx;
+  height:10rpx;
+  position:absolute;
+  animation:flyingOut 1.6s; 
+}
+@keyframes flyingOut{
+  0% { opacity:1}
+  25% { opacity:0.6}
+  50% { opacity:0.3}
+  100% { left:0rpx;top:0rpx;opacity:0;}
+}
+/* 右上角消失 */
+.flying_pic2{
+  background-color:blue;
+  width:10rpx;
+  height:10rpx;
+  position:absolute;
+  animation:flyingOut1 1.6s ease-in infinite; 
+}
+@keyframes flyingOut1{
+  0% { opacity:1}
+  25% { opacity:0.6}
+  50% { opacity:0.3}
+  100% { left:750rpx;top:0rpx;opacity:0;}
+}
+/* 右下角消失 */
+.flying_pic3{
+  background-color:crimson;
+  width:10rpx;
+  height:10rpx;
+  position:absolute;
+  animation:flyingOut2 1.6s ease-in infinite; 
+}
+@keyframes flyingOut2{
+  0% { opacity:1}
+  25% { opacity:0.6}
+  50% { opacity:0.3}
+  100% { left:750rpx;top:500rpx;opacity:0;}
+}
+/* 左下角消失 */
+.flying_pic4{
+  background-color:red;
+  width:10rpx;
+  height:10rpx;
+  position:absolute;
+  animation:flyingOut3 1.6s ease-in infinite; 
+}
+@keyframes flyingOut3{
+  0% { opacity:1}
+  25% { opacity:0.8}
+  50% { opacity:0.5}
+  100% { left:0rpx;top:500rpx;opacity:0;}
+}
 .bad_px{
-  background-color: #fff;
-  /* opacity:.1; */
-  height:20rpx;
-  width:20rpx;  
+   /* background-color: #fff;  */
+  height:50rpx;
+  width:50rpx;  
    /* left:300rpx;
   top:100rpx;  */
    position:absolute;  
+}
+.target{
+  /* background-color:#000; */
+  height: 10rpx;
+  margin-left:20rpx;
+  margin-top:20rpx;
+  width:10rpx;
 }
 .info{
   background: #fff;

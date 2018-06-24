@@ -1,0 +1,4 @@
+<!--pages/index/animation.wxml-->
+<text>pages/index/animation.wxml</text>
+<button bindtap='showAnm'>点击查看动画</button>
+<view class='move' style='display:{{isShow?true:"none"}}'></view>

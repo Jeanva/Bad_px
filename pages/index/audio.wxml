@@ -1,0 +1,4 @@
+<!--pages/index/audio.wxml-->
+<text>pages/index/audio.wxml</text>
+
+<view bindtap='playAudio'>点击播放</view>

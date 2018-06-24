@@ -1,6 +1,8 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/index/audio",
+    "pages/index/animation",
     "pages/logs/logs"
   ],
   "window":{

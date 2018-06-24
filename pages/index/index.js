@@ -11,11 +11,15 @@ Page({
     offsetX:null,
     offsetY:null,
     opac:1,
-    // bgcolor:{r:0,g:0,b:0},
-    r:32,
-    g:23,
-    b:50,
+    bgcolor:true,
+    r:null,
+    g:null,
+    b:null,
+    b_rgb:null,
     score:0,
+    tx_x:null,
+    tx_y:null,
+    isShow:false,
   },
   //事件处理函数
   bindViewTap: function() {
@@ -24,21 +28,31 @@ Page({
     })
   },
   onLoad: function () {
-    //随机生成颜色
-    var new_r = Math.round(Math.random() * 250);
-    var new_g = Math.round(Math.random() * 250);
-    var new_b = Math.round(Math.random() * 250);
-
+    var new_r,new_g,new_b,b_rgb=this.data.b_rgb;
+    (function main_color(){
+    //随机生成背景颜色
+     new_r= Math.round(Math.random() * 250);
+     new_g = Math.round(Math.random() * 250);
+     new_b = Math.round(Math.random() * 250);
+     var b_r = 250- new_r;
+     var b_g = 250- new_r;
+     var b_b = 250- new_b;
+     b_rgb = 'rgb('+b_r+','+b_g+','+b_b+')';
+     console.log('b_rgb'+b_rgb);
+     return new_r,new_g,new_b,b_rgb;
+    })();
     var x =this.data.offsetX;
     var y = this.data.offsetY;
     x = Math.round(Math.random() * 200);
     y = Math.round(Math.random() * 200);
+    
     this.setData({
         offsetX:x,
         offsetY:y,
         r:new_r,
         g:new_g,
-        b:new_b
+        b:new_b,
+        b_rgb:b_rgb,
     });
 
     if (app.globalData.userInfo) {
@@ -76,16 +90,60 @@ Page({
       hasUserInfo: true
     })
   },
-
+  
   addScore: function (e) { 
     var _this= this;
     var score=this.data.score;
     console.log(e);
-
+    //特效坐标
+    var tx_x=_this.data.offsetX;
+    var tx_y=_this.data.offsetY;
+    //是否显示特效
+    var isShow= this.data.isShow;
+    // setInterval(() => {
+      this.setData({
+        isShow: true,
+        tx_x:tx_x,
+        tx_y:tx_y,
+      });
+    // }, 2000);
+    
     //随机生成颜色
     var new_r = Math.round(Math.random() * 250);
     var new_g = Math.round(Math.random() * 250);
     var new_b = Math.round(Math.random() * 250);
+    // 坏点颜色
+    function bad_color() {
+      var b_r = 250 - new_r;
+      var b_g = 250 - new_g;
+      var b_b = 250 - new_b;
+      return 'rgb(' + b_r + ',' + b_g + ',' + b_b + ')';
+    }
+    var b_rgb = bad_color();
+    console.log('b_rgb' + b_rgb);
+    //坏点透明度
+    var opac = this.data.opac;
+    //如果分数高于90，透明度始终小于0.3
+    if(score>=90 || opac<0.3){
+      
+      opac = Math.ceil(Math.random()*3);
+      console.log('opac小于0.3', opac);
+    }
+    //如果分数高于60，透明度始终小于0.5
+    else if(score>=60 || opac<= 0.2){
+      opac = Math.ceil(Math.random() * 10);
+      console.log('opac 小于0.6', opac);
+    }
+    //60分以下时，透明度始终大于
+    else if(score>0){
+      opac = (Math.random() * 10+1)%10/10;
+      console.log(opac);
+      if (opac <= 0.5){
+        opac=0.5
+        console.log('opac过小，修正后为',opac);
+      }
+      else{console.log('opac 没有限制', opac);}
+    }
 
     var offsetx = _this.data.offsetX;
     var y = this.data.offsetY;
@@ -97,15 +155,39 @@ Page({
       offsetx = Math.round(Math.random()*200);
       y = Math.round(Math.random()*750);
     }
-  
-    this.setData({
-      offsetX: Math.round(Math.random() * 325),
-      offsetY: Math.round(Math.random() * 600),
-      r:new_r,
-      g:new_g,
-      b:new_b,
-      opac:Math.random(),
-      score:score+1
-    })
+    // 播放声音
+    (()=>{
+      const bg_music = wx.createInnerAudioContext();
+      bg_music.autoplay = true;
+      bg_music.src = '';
+      bg_music.onPlay(()=>{
+        console.log('播放声音');
+      });
+      bg_music.onError((res)=>{
+        console.log(res.errMsg);
+        console.log(res.errCode);
+      });
+    })()
+    setTimeout(()=>{
+      this.setData({
+        offsetX: Math.round(Math.random() * 325),
+        offsetY: Math.round(Math.random() * 600),
+        r:new_r,
+        g:new_g,
+        b:new_b,
+        // opac:Math.random(),
+        opac:opac,
+        b_rgb: b_rgb,
+        score:score+1,
+        isShow:true,
+      })
+    },500);
+    setInterval(()=>{
+      this.setData({
+        isShow:false
+      }
+      );
+    },1200);
+    
   }
 })

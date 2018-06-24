@@ -4,8 +4,14 @@
   <!-- <view class='bad_px' bindtap='addScore' style="left:{{offsetX}}px,top:{{offsetY}}px"></view> -->
 
    <!-- <view class='bad_px' bindtap='addScore' style="transform:translate({{offsetX}} px,{{offsetY}} px);opacity:{{opac}}"></view>  -->
-   <view class='bad_px' bindtap='addScore' style='left:{{offsetX}}px;top:{{offsetY}}px;opacity:{{opac}}'></view>
+   <view class='flying_pic1' style='display:{{isShow?true :"none"}};left:{{tx_x+15}}px;top:{{tx_y+15}}px;'></view>
+   <view class='flying_pic2' style='display:{{isShow?true :"none"}};left:{{tx_x+15}}px;top:{{tx_y+15}}px;'></view>
+   <view class='flying_pic3' style='display:{{isShow?true :"none"}};left:{{tx_x+15}}px;top:{{tx_y+15}}px;'></view>
+   <view class='flying_pic4' style='display:{{isShow?true :"none"}};left:{{tx_x+15}}px;top:{{tx_y+15}}px;'></view>
+   <view class='bad_px' bindtap='addScore' style='left:{{offsetX}}px;top:{{offsetY}}px;'>
+      <view class='target' style="background-color:{{b_rgb}};opacity:{{opac}}"></view>
+   </view>
    <view class='info'> 
-    <text>得分:{{score}},x:{{offsetX}},y:{{offsetY}} r{{r}}</text>
+    <text>得分:{{score}},x:{{offsetX}},y:{{offsetY}} r{{r}}  opacity:{{opac}}</text>
    </view> 
 </view>
