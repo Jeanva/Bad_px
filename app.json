@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/index/audio",
     "pages/index/animation",
+    "pages/demo2/demo2",
     "pages/logs/logs"
   ],
   "window":{

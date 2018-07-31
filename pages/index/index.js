@@ -20,6 +20,7 @@ Page({
     tx_x:null,
     tx_y:null,
     isShow:false,
+    promp:false,
   },
   //事件处理函数
   bindViewTap: function() {
@@ -28,6 +29,14 @@ Page({
     })
   },
   onLoad: function () {
+    wx.getSystemInfo({
+      success:function (res){
+        console.log(res.windowWidth);
+        const width=res.windowWidth;
+        console.log(res.windowHeight);
+        const height = res.windowHeight;
+      }
+    });
     var new_r,new_g,new_b,b_rgb=this.data.b_rgb;
     (function main_color(){
     //随机生成背景颜色
@@ -82,6 +91,7 @@ Page({
       })
     }
   },
+
   getUserInfo: function(e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo
@@ -89,6 +99,47 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+  getOpacity:function(){
+    //坏点透明度--------------------------------
+    var opac = this.data.opac;
+    //如果分数高于90，透明度始终小于0.3
+    if (score >= 90 || opac < 0.3) {
+      opac = Math.ceil(Math.random() * 3);
+      console.log('opac小于0.3', opac);
+    }
+    //如果分数高于60，透明度始终小于0.5
+    else if (score >= 60 || opac <= 0.2) {
+      opac = Math.ceil(Math.random() * 10);
+      console.log('opac 小于0.6', opac);
+    }
+    //60分以下时，透明度始终大于
+    else if (score > 0) {
+      // opac = (Math.random() * 10+1)%10/10;
+      opac = Math.floor((Math.random() + Math.floor(Math.random() * 9 + 1))) / 10;
+      console.log(opac);
+      if (opac <= 0.5) {
+        opac = 0.5
+        console.log('opac过小，修正后为', opac);
+      }
+      else { console.log('opac 没有限制', opac); }
+    }
+    return opac;
+  },
+  // 提示
+  promtion:function (e){
+    console.log(e);
+    console.log(this.data.offsetX,this.data.offsetY);
+    console.log(this.data.opac);
+    console.log(this.data.promp);
+    this.setData({
+      promp: true
+    });
+    setTimeout(()=>{
+      this.setData({
+        promp:false
+      })
+    },1000);
   },
   
   addScore: function (e) { 
@@ -120,58 +171,47 @@ Page({
       return 'rgb(' + b_r + ',' + b_g + ',' + b_b + ')';
     }
     var b_rgb = bad_color();
-    console.log('b_rgb' + b_rgb);
-    //坏点透明度
+    console.log('b_rgb' + b_rgb); 
+
+    //坏点透明度--------------------------------
+    
     var opac = this.data.opac;
     //如果分数高于90，透明度始终小于0.3
-    if(score>=90 || opac<0.3){
-      
-      opac = Math.ceil(Math.random()*3);
+    if (score >= 90 || opac < 0.3) {
+      opac = Math.ceil(Math.random() * 3);
       console.log('opac小于0.3', opac);
     }
     //如果分数高于60，透明度始终小于0.5
-    else if(score>=60 || opac<= 0.2){
+    else if (score >= 60 || opac <= 0.2) {
       opac = Math.ceil(Math.random() * 10);
       console.log('opac 小于0.6', opac);
     }
     //60分以下时，透明度始终大于
-    else if(score>0){
-      opac = (Math.random() * 10+1)%10/10;
+    else if (score > 0) {
+      // opac = (Math.random() * 10+1)%10/10;
+      opac = Math.floor((Math.random() + Math.floor(Math.random() * 9 + 1))) / 10;
       console.log(opac);
-      if (opac <= 0.5){
-        opac=0.5
-        console.log('opac过小，修正后为',opac);
+      /*if (opac <= 0.5) {
+        opac = 0.5
+        console.log('opac过小，修正后为', opac);
       }
-      else{console.log('opac 没有限制', opac);}
+      else { console.log('opac 没有限制', opac); }*/
     }
-
+     
+    // 坐标轴---------------------
     var offsetx = _this.data.offsetX;
-    var y = this.data.offsetY;
-    _this.data.offsetX = Math.round(Math.random() * 200);
-    // var y=Math.round(Math.random()*750);
-    console.log(_this.data.offsetX, y);
-    //如果x轴和y轴值为null,则随机分配
-    if(offsetx ==null|| y == null){
-      offsetx = Math.round(Math.random()*200);
-      y = Math.round(Math.random()*750);
-    }
+    var y = _this.data.offsetY;
+     offsetx = Math.round(Math.random() * 325);
+     y=Math.round(Math.random()*520);
+    console.log(offsetx, y);
+    
     // 播放声音
-    (()=>{
-      const bg_music = wx.createInnerAudioContext();
-      bg_music.autoplay = true;
-      bg_music.src = '';
-      bg_music.onPlay(()=>{
-        console.log('播放声音');
-      });
-      bg_music.onError((res)=>{
-        console.log(res.errMsg);
-        console.log(res.errCode);
-      });
-    })()
+    
+    //在特效动画播放完毕后，生成新的坏点
     setTimeout(()=>{
       this.setData({
-        offsetX: Math.round(Math.random() * 325),
-        offsetY: Math.round(Math.random() * 600),
+        offsetX:offsetx,
+        offsetY:y,
         r:new_r,
         g:new_g,
         b:new_b,
@@ -187,7 +227,7 @@ Page({
         isShow:false
       }
       );
-    },1200);
+    },1000);
     
   }
 })

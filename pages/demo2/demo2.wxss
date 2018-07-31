@@ -1,0 +1,57 @@
+/* pages/demo2/demo2.wxss */
+.tip_bar{
+  height:80rpx;
+  width:100%;
+  color:#fff;
+}
+.tip_bar view{
+  font-weight: bolder;
+  display: inline-block;
+}
+.score{
+  background:#ff0066;
+  border:12rpx solid #ff80b3;
+  width:280rpx;
+}
+.info{
+  background: #00bfff;
+  border:12rpx solid #80DEF6;
+  width:422rpx;
+}
+.promption{
+  background:yellow;
+  border:12rpx solid #ffffcc;
+  border-radius: 18rpx;
+  color:#b36b00;
+  position:absolute;
+  right:0rpx;
+  top:0rpx;
+}
+.promot_show{
+  /* border:solid 2px #ff0066; */
+  animation: pro_animation .9s;
+}
+@keyframes pro_animation{
+  0% {background:#fff;}
+  30%{ background:#80DEF6}
+  60%{ background:#ff0066;}
+  100%{background:#fff}
+}
+.game_bg{
+  display: block;
+  /* height:1050rpx; */
+  border:solid 12rpx #3366CC;
+  background:linear-gradient(#336699, #333366,#000033 );
+  border-radius: 50rpx;
+  padding:40rpx;
+}
+.game_area{
+  background: #f2f2f2;
+  height:1030rpx;
+}
+.bad_px{
+  background: red;
+  width:50rpx;
+  height:50rpx;
+  position:absolute;
+}

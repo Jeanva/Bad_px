@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 2,
 			"list": [
 				{
 					"id": -1,
@@ -43,6 +43,11 @@
 					"name": "动画",
 					"pathName": "pages/index/animation",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "demo2",
+					"pathName": "pages/demo2/demo2"
 				}
 			]
 		}

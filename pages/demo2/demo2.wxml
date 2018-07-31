@@ -1,0 +1,14 @@
+<!--pages/demo2/demo2.wxml-->
+<view style="position:fixed;width:100%;height:100%;background:#ccc">
+  <view class='tip_bar'>
+    <view class='score'>score:{{score}}</view>
+    <view class="info">info:{{x}},{{y}}</view>
+    <view class="promption" bindtap='promotFn'>提示</view>
+  </view>
+  <!-- <view class='game_bg' style='height:{{(height-92)*2}}rpx'> -->
+  <view class='game_bg' style='height:{{game_bg_h}}rpx'>
+     <!-- <view class="game_area" style='background-color:{{game_bg}};height:{{(height-52)*2-80}}rpx'> --><view class="game_area" style='background-color:{{game_bg}};height:{{game_h}}rpx'>
+      <view class="bad_px {{promot?'promot_show':''}}" bindtap="newpx" style="left:{{x}}px;top:{{y}}px;background-color:{{target_cl}}"></view>
+     </view>
+  </view>
+</view>
